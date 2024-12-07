@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frag_info_scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/frag_info_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Application Info Text -->
+        <TextView
+            android:id="@+id/frag_info_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome to the Crous App! This application allows you to explore Crous restaurants, view them on a map, and manage your favorites."
+            android:textAppearance="?attr/textAppearanceBody1" />
+
+        <!-- Add more info as needed -->
+
+    </LinearLayout>
+</ScrollView>

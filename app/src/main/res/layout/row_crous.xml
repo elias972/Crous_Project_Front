@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_crous_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <!-- Photo -->
+    <ImageView
+        android:id="@+id/row_crous_img_photo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_placeholder" />
+
+    <!-- Text Container -->
+    <LinearLayout
+        android:id="@+id/row_crous_text_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="8dp">
+
+        <!-- Crous Name -->
+        <TextView
+            android:id="@+id/row_crous_txv_nom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nom"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold" />
+
+        <!-- Crous Zone -->
+        <TextView
+            android:id="@+id/row_crous_txv_zone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zone"
+            android:textAppearance="?attr/textAppearanceBody2" />
+
+    </LinearLayout>
+
+    <!-- Favorite Icon -->
+    <ImageView
+        android:id="@+id/row_crous_img_favorite"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_favorite_border"
+        android:contentDescription="Favorite Icon"
+        android:layout_gravity="center_vertical" />
+
+</LinearLayout>

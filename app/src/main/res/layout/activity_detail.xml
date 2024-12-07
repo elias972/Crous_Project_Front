@@ -1,0 +1,76 @@
+<!-- activity_detail.xml -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ImageView for the photo -->
+        <ImageView
+            android:id="@+id/imageViewPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="hhh" />
+
+
+        <!-- TextView for the name -->
+        <TextView
+            android:id="@+id/textViewNom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginTop="8dp"
+            android:text="Crous Name" />
+
+        <!-- TextView for the type -->
+        <TextView
+            android:id="@+id/textViewType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:textSize="18sp"
+            android:layout_marginTop="4dp"
+            android:text="Type" />
+
+        <!-- TextView for the zone -->
+        <TextView
+            android:id="@+id/textViewZone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Zone" />
+
+        <!-- TextView for the description -->
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Description" />
+
+        <!-- TextView for the contact -->
+        <TextView
+            android:id="@+id/textViewContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Contact" />
+
+        <!-- TextView for the informations -->
+        <TextView
+            android:id="@+id/textViewInformations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Informations" />
+
+        <!-- Add other TextViews for additional fields as needed -->
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/add_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- EditText for Name -->
+        <EditText
+            android:id="@+id/edtNom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name" />
+
+        <!-- EditText for Type -->
+        <EditText
+            android:id="@+id/edtType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Type" />
+
+        <!-- EditText for Zone -->
+        <EditText
+            android:id="@+id/edtZone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Zone" />
+
+        <!-- EditText for Description -->
+        <EditText
+            android:id="@+id/edtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description" />
+
+        <!-- EditText for Contact -->
+        <EditText
+            android:id="@+id/edtContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contact" />
+
+        <!-- Add Button -->
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Crous" />
+
+    </LinearLayout>
+</ScrollView>
