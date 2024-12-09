@@ -9,6 +9,6 @@ interface CrousService {
     @GET("/crous")
     fun getAllCrous(): Call<List<Crous>>
 
-    @GET("/crous/{id}")
-    fun getCrous(@Path("id") id: String): Call<Crous>
+    //@GET("/crous/{id}")
+    //fun getCrous(@Path("id") id: String): Call<Crous>
 }

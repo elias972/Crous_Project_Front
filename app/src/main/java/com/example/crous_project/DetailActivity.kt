@@ -34,7 +34,7 @@ class DetailActivity : AppCompatActivity() {
         textViewZone.text = crous.zone
         textViewDescription.text = crous.description ?: "No description available"
         textViewContact.text = "Contact: ${crous.contact ?: "N/A"}"
-        textViewInformations.text = crous.informations ?: "No additional information"
+        textViewInformations.text = crous.info ?: "No additional information"
 
         // Load photo using Glide or any other image loading library
         if (!crous.photo.isNullOrEmpty()) {

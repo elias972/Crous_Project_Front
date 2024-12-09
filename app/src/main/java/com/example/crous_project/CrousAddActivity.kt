@@ -38,14 +38,9 @@ class CrousAddActivity : AppCompatActivity() {
                 zone = edtZone.text.toString(),
                 description = edtDescription.text.toString(),
                 contact = edtContact.text.toString(),
-                lat = null,
-                informations = null,
-                closing = null,
                 geolocalisation = null,
-                zone2 = null,
-                crousandgo = null,
-                album = null,
                 photo = "",
+                info=null,
                 favorite = false
             )
             crousRepository.addCrous(crous)

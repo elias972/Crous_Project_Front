@@ -3,6 +3,7 @@ package com.example.crous_project
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +11,26 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+import android.widget.Toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+const val SERVER_BASE_URL = "http://10.0.2.2:3000"
+
 class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener {
 
     private val crousRepository = CrousRepository
+
+    private val retrofit = Retrofit.Builder()
+        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl(SERVER_BASE_URL)
+        .build()
+
+    private val crousService = retrofit.create(CrousService::class.java)
+
     private lateinit var tabLayout: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +41,8 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        // Load sample data
-        loadSampleData()
+        // Load data from API
+        loadCrousDataFromApi()
 
         // Setup TabLayout
         tabLayout = findViewById(R.id.tab_layout)
@@ -73,53 +91,34 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener {
         }
     }
 
-    private fun loadSampleData() {
-        // Sample data initialization
-        val crousList = listOf(
-            Crous(
-                id = "1",
-                type = "Restaurant",
-                zone = "Zone A",
-                nom = "Crous Restaurant 1",
-                description = "A popular student restaurant in Zone A.",
-                contact = "contact@crous1.com",
-                lat = 48.8566,
-                informations = "Open from 8 AM to 8 PM.",
-                closing = null,
-                geolocalisation = listOf(48.8566, 2.3522),
-                zone2 = null,
-                crousandgo = null,
-                album = null,
-                photo = "",
-                favorite = false
-            ),
-            Crous(
-                id = "2",
-                type = "Cafeteria",
-                zone = "Zone B",
-                nom = "Crous Cafeteria 2",
-                description = "A cozy cafeteria in Zone B.",
-                contact = "contact@crous2.com",
-                lat = 43.6047,
-                informations = "Open weekdays from 9 AM to 5 PM.",
-                closing = "Closed on weekends.",
-                geolocalisation = listOf(43.6047, 1.4442),
-                zone2 = null,
-                crousandgo = null,
-                album = null,
-                photo = "",
-                favorite = false
-            )
-            // Add more sample Crous objects as needed
-        )
+    private fun loadCrousDataFromApi() {
+        Log.d("CrousAPI", "FETTTTTTTTTT.")
+        crousService.getAllCrous().enqueue(object : Callback<List<Crous>> {
+            override fun onResponse(call: Call<List<Crous>>, response: Response<List<Crous>>) {
+                val crousList = response.body()
+                if (crousList != null) {
+                    // Log the size of the retrieved list
+                    Log.d("CrousAPI", "Retrieved ${crousList.size} Crous items from the API.")
 
-        // Update the repository
-        crousRepository.clear()
-        crousList.forEach { crousRepository.addCrous(it) }
-        crousRepository.loadFavorites(this)
+                    crousRepository.clear()
+                    crousList.forEach { crousRepository.addCrous(it) }
+                    crousRepository.loadFavorites(this@MainActivity)
+                    updateCurrentFragment()
+                } else {
+                    // Log if the response body is null
+                    Log.w("CrousAPI", "Response body is null.")
+                }
+            }
 
-        // Update the UI
-        updateCurrentFragment()
+            override fun onFailure(call: Call<List<Crous>>, t: Throwable) {
+                Log.e("CrousAPI", "API call failed. Error: ${t.message}", t)
+                Toast.makeText(
+                    this@MainActivity,
+                    "Failed to load data: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 
     private fun updateCurrentFragment() {
@@ -183,7 +182,9 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_refresh -> {
-                loadSampleData()
+
+                // Load data from API
+                loadCrousDataFromApi()
                 true
             }
             else -> super.onOptionsItemSelected(item)

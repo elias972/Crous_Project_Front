@@ -42,28 +42,30 @@ class MapFragment : Fragment(R.layout.fragment_map), OnMapReadyCallback {
     }
 
     private fun displayCrousOnMap() {
-        crousRepository.getAllCrous().forEach { crous ->
-            val location = crous.geolocalisation
-            if (location != null && location.size >= 2) {
-                val position = com.google.android.gms.maps.model.LatLng(
-                    location[0], location[1]
-                )
-                googleMap.addMarker(
-                    com.google.android.gms.maps.model.MarkerOptions()
-                        .position(position)
-                        .title(crous.nom)
-                )
+            crousRepository.getAllCrous().forEach { crous ->
+                crous.geolocalisation?.let { geolocalisation ->
+                    val position = com.google.android.gms.maps.model.LatLng(
+                        geolocalisation.latitude,
+                        geolocalisation.longitude
+                    )
+                    googleMap.addMarker(
+                        com.google.android.gms.maps.model.MarkerOptions()
+                            .position(position)
+                            .title(crous.nom)
+                    )
+                }
             }
-        }
+
+
         // Optionally, move the camera to a default position
         // For example, move the camera to the first Crous location
-        crousRepository.getAllCrous().firstOrNull()?.geolocalisation?.let { location ->
-            if (location.size >= 2) {
-                val position = com.google.android.gms.maps.model.LatLng(
-                    location[0], location[1]
-                )
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 12f))
-            }
+        crousRepository.getAllCrous().firstOrNull()?.geolocalisation?.let { geolocalisation ->
+            val position = com.google.android.gms.maps.model.LatLng(
+                geolocalisation.latitude,
+                geolocalisation.longitude
+            )
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 12f))
         }
+
     }
 }
