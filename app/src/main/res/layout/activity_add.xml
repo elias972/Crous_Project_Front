@@ -19,12 +19,13 @@
             android:layout_height="wrap_content"
             android:hint="Name" />
 
-        <!-- EditText for Type -->
-        <EditText
-            android:id="@+id/edtType"
+        <!-- Selector the type, predefined in strings.xml -->
+        <Spinner
+            android:id="@+id/spinnerType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type" />
+            android:prompt="@string/select_type" />
+
 
         <!-- EditText for Zone -->
         <EditText
@@ -47,12 +48,47 @@
             android:layout_height="wrap_content"
             android:hint="Contact" />
 
+        <!-- EditText for Info -->
+        <EditText
+            android:id="@+id/edtInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Info" />
+
+        <!-- EditText for Photo URL -->
+        <EditText
+            android:id="@+id/edtPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Photo URL" />
+
+        <!-- EditText for Latitude -->
+        <EditText
+            android:id="@+id/edtLatitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Latitude" />
+
+        <!-- EditText for Longitude -->
+        <EditText
+            android:id="@+id/edtLongitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Longitude" />
+
         <!-- Add Button -->
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add Crous" />
+
+        <!-- Return to Main Button -->
+        <Button
+            android:id="@+id/btnReturnToMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Return to Main Page" />
 
     </LinearLayout>
 </ScrollView>

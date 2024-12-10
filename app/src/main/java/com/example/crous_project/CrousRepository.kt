@@ -42,4 +42,16 @@ object CrousRepository {
     fun clear() {
         storage.clear()
     }
+
+    //for pagination
+    fun getPaginatedCrous(page: Int, pageSize: Int): List<Crous> {
+        val sortedCrous = storage.sortedWith(compareByDescending<Crous> { it.favorite }.thenBy { it.nom })
+        val fromIndex = (page - 1) * pageSize
+        val toIndex = kotlin.math.min(fromIndex + pageSize, sortedCrous.size)
+        return if (fromIndex < sortedCrous.size) {
+            sortedCrous.subList(fromIndex, toIndex)
+        } else {
+            emptyList()
+        }
+    }
 }

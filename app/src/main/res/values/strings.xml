@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Crous_Project</string>
+    <string name="select_type">Select Type</string>
+    <string-array name="type_options">
+        <item>Cafétéria</item>
+        <item>Pizzéria</item>
+        <item>Restaurant agréé</item>
+        <item>Libre-service</item>
+        <item>Kiosque</item>
+        <item>Brasserie</item>
+    </string-array>
 </resources>

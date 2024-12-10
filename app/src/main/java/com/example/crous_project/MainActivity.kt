@@ -92,20 +92,15 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener {
     }
 
     private fun loadCrousDataFromApi() {
-        Log.d("CrousAPI", "FETTTTTTTTTT.")
         crousService.getAllCrous().enqueue(object : Callback<List<Crous>> {
             override fun onResponse(call: Call<List<Crous>>, response: Response<List<Crous>>) {
                 val crousList = response.body()
                 if (crousList != null) {
-                    // Log the size of the retrieved list
-                    Log.d("CrousAPI", "Retrieved ${crousList.size} Crous items from the API.")
-
                     crousRepository.clear()
                     crousList.forEach { crousRepository.addCrous(it) }
                     crousRepository.loadFavorites(this@MainActivity)
                     updateCurrentFragment()
                 } else {
-                    // Log if the response body is null
                     Log.w("CrousAPI", "Response body is null.")
                 }
             }
@@ -129,6 +124,7 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener {
             currentFragment.updateMap()
         }
     }
+
 
     private fun displayListFragment() {
         val fragment = ListFragment()
