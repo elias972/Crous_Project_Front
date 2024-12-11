@@ -29,18 +29,18 @@ object CrousRepository {
     }
 
 
-    fun loadFavorites(context: Context) {
-        val sharedPrefs = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
-        val favoriteIds = sharedPrefs.getStringSet("favorite_ids", emptySet()) ?: emptySet()
-        storage.forEach { it.favorite = it.id in favoriteIds }
-    }
-    fun saveFavorites(context: Context) {
-        val sharedPrefs = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
-        val editor = sharedPrefs.edit()
-        val favoriteIds = storage.filter { it.favorite }.map { it.id }.toSet()
-        editor.putStringSet("favorite_ids", favoriteIds)
-        editor.apply()
-    }
+//    fun loadFavorites(context: Context) {
+//        val sharedPrefs = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
+//        val favoriteIds = sharedPrefs.getStringSet("favorite_ids", emptySet()) ?: emptySet()
+//        storage.forEach { it.favorite = it.id in favoriteIds }
+//    }
+//    fun saveFavorites(context: Context) {
+//        val sharedPrefs = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
+//        val editor = sharedPrefs.edit()
+//        val favoriteIds = storage.filter { it.favorite }.map { it.id }.toSet()
+//        editor.putStringSet("favorite_ids", favoriteIds)
+//        editor.apply()
+//    }
 
     fun clear() {
         storage.clear()

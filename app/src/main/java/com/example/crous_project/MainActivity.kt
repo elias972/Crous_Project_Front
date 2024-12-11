@@ -103,7 +103,6 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener, 
                 if (crousList != null) {
                     crousRepository.clear()
                     crousList.forEach { crousRepository.addCrous(it) }
-                    crousRepository.loadFavorites(this@MainActivity)
                     updateCurrentFragment()
                 } else {
                     Log.w("CrousAPI", "Response body is null.")
@@ -124,11 +123,18 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener, 
     private fun updateCurrentFragment() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment is ListFragment) {
-            currentFragment.updateCrousList(crousRepository.getAllCrous())
+            val showFavoritesOnly = currentFragment.arguments?.getBoolean("showFavoritesOnly") ?: false
+            val updatedList = if (showFavoritesOnly) {
+                crousRepository.getAllCrous().filter { it.favorite }
+            } else {
+                crousRepository.getAllCrous()
+            }
+            currentFragment.updateCrousList(updatedList)
         } else if (currentFragment is MapFragment) {
             currentFragment.updateMap()
         }
     }
+
 
 
     private fun displayListFragment() {
@@ -166,6 +172,7 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener, 
             .replace(R.id.fragment_container, fragment)
             .commit()
         // Update tab selection
+        // should delete?
         tabLayout.getTabAt(0)?.select()
     }
 
@@ -216,7 +223,6 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener, 
                         if (crousFromServer != null) {
                             // Add to local repository
                             crousRepository.addCrous(crousFromServer)
-                            crousRepository.saveFavorites(this@MainActivity)
 
                             // Notify user and finish
                             Toast.makeText(
