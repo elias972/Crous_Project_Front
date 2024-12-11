@@ -4,6 +4,7 @@ package com.example.crous_project
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 
@@ -15,8 +16,21 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        // Retrieve the Crous object from the intent
-        crous = intent.getSerializableExtra("crous") as Crous
+        // Get the crous_id from intent <- so we can find it from local storage again
+        val crousId = intent.getStringExtra("crous_id")
+        if (crousId == null) {
+            Toast.makeText(this, "Failed to load details", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
+        // Retrieve the Crous object from the repository
+        val crous = CrousRepository.getCrous(crousId)
+        if (crous == null) {
+            Toast.makeText(this, "Crous not found", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
 
         // Initialize UI components
         val imageViewPhoto = findViewById<ImageView>(R.id.imageViewPhoto)

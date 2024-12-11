@@ -17,10 +17,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import com.example.crous_project.CrousCreator
+
 
 const val SERVER_BASE_URL = "http://10.0.2.2:3000"
 
-class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener {
+class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener, CrousCreator {
 
     private val crousRepository = CrousRepository
 
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener {
                     2 -> displayInfoFragment()
                 }
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
@@ -75,17 +78,19 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener {
                     tabLayout.getTabAt(0)?.select()
                     true
                 }
+
                 R.id.navigation_add -> {
                     // Start AddActivity
-                    val intent = Intent(this, CrousAddActivity::class.java)
-                    startActivity(intent)
+                    displayCrousAddFragment()
                     true
                 }
+
                 R.id.navigation_favorite -> {
                     // Display only favorite Crous in the list
                     displayFavoriteCrous()
                     true
                 }
+
                 else -> false
             }
         }
@@ -159,9 +164,17 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener {
         tabLayout.getTabAt(0)?.select()
     }
 
+    private fun displayCrousAddFragment() {
+        val fragment = CrousAddFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null) // Optional: allows back navigation
+            .commit()
+    }
+
     override fun onCrousSelected(crous: Crous) {
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra("crous", crous)
+        intent.putExtra("crous_id", crous.id)
         startActivity(intent)
     }
 
@@ -183,7 +196,51 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener {
                 loadCrousDataFromApi()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun onCrousCreated(crous: Crous) {
+        // Call the API
+        crousService.createCrous(crous)
+            .enqueue(object : Callback<Crous> {
+                override fun onResponse(call: Call<Crous>, response: Response<Crous>) {
+                    if (response.isSuccessful) {
+                        val crousFromServer = response.body()
+                        if (crousFromServer != null) {
+                            // Add to local repository
+                            crousRepository.addCrous(crousFromServer)
+                            crousRepository.saveFavorites(this@MainActivity)
+
+                            // Notify user and finish
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Crous added successfully!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            // Switch to the list fragment or refresh the view
+                            displayListFragment()
+                        } else {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Failed to parse server response.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "API Error: ${response.code()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Crous>, t: Throwable) {
+                    Toast.makeText(this@MainActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
 }
