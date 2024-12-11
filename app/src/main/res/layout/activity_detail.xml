@@ -70,7 +70,14 @@
             android:layout_marginTop="8dp"
             android:text="Informations" />
 
-        <!-- Add other TextViews for additional fields as needed -->
+        <!-- Button for returning to the main menu -->
+        <Button
+            android:id="@+id/btnReturnToMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Return to Main Menu" />
+
 
     </LinearLayout>
 </ScrollView>

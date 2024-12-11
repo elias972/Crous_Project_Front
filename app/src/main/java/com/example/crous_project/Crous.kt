@@ -14,5 +14,5 @@ data class Crous(
     val info: String?,
     val geolocalisation: Geolocalisation?, // [latitude, longitude]
     val photo: String?,
-    var favorite: Boolean = false // Favorite status
+    var favorite: Boolean
 ) : Serializable

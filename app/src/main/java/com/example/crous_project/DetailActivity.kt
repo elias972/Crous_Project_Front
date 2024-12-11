@@ -1,7 +1,9 @@
 // DetailActivity.kt
 package com.example.crous_project
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -11,6 +13,8 @@ import com.bumptech.glide.Glide
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var crous: Crous
+    private lateinit var btnReturnToMain: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +46,11 @@ class DetailActivity : AppCompatActivity() {
         val textViewInformations = findViewById<TextView>(R.id.textViewInformations)
         // Add other UI components as needed
 
+        btnReturnToMain = findViewById(R.id.btnReturnToMain)
+        btnReturnToMain.setOnClickListener {
+            navigateToMainMenu()
+        }
+
         // Set data to UI components
         textViewNom.text = crous.nom
         textViewType.text = crous.type
@@ -70,5 +79,12 @@ class DetailActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    private fun navigateToMainMenu() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish() // Optional: finish the DetailActivity to remove it from the back stack
     }
 }

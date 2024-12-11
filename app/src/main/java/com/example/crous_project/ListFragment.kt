@@ -21,7 +21,7 @@ class ListFragment : Fragment() {
 
     //pagination related
     private var currentPage = 1
-    private val pageSize = 5
+    private val pageSize = 25
 
 
     interface OnCrousSelectedListener {
@@ -71,24 +71,17 @@ class ListFragment : Fragment() {
 
     private fun loadCrousList() {
         val crousList = if (showFavoritesOnly) {
-            crousRepository.getAllCrous().filter { it.favorite }
+            crousRepository.getPaginatedCrous(1, 50).filter { it.favorite }
         } else {
-            crousRepository.getPaginatedCrous(currentPage, pageSize) // Apply pagination here
+            crousRepository.getPaginatedCrous(currentPage, pageSize)
         }
 
         crousAdapter = CrousAdapter(
             crousList,
             onItemClick = { crous -> listener?.onCrousSelected(crous) },
             onFavoriteClick = { crous ->
-                crous.favorite = !crous.favorite
-                crousRepository.updateFavoriteStatus(crous.id, crous.favorite, requireContext())
-                updateCrousList(
-                    if (showFavoritesOnly) {
-                        crousRepository.getAllCrous().filter { it.favorite }
-                    } else {
-                        crousRepository.getPaginatedCrous(currentPage, pageSize)
-                    }
-                )
+                val newFavoriteStatus = !crous.favorite
+                (activity as? MainActivity)?.onFavoriteToggled(crous.id, newFavoriteStatus)
             }
         )
         recyclerView.adapter = crousAdapter

@@ -22,7 +22,7 @@ import com.example.crous_project.CrousCreator
 
 const val SERVER_BASE_URL = "http://10.0.2.2:3000"
 
-class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener, CrousCreator {
+class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener, CrousCreator, CrousCallback {
 
     private val crousRepository = CrousRepository
 
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener, 
             when (menuItem.itemId) {
                 R.id.navigation_home -> {
                     // Return to main activity or refresh
-                    tabLayout.getTabAt(0)?.select()
+                    displayListFragment() // Reset to default "Home" mode
                     true
                 }
 
@@ -133,9 +133,14 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener, 
 
     private fun displayListFragment() {
         val fragment = ListFragment()
+        val bundle = Bundle()
+        bundle.putBoolean("showFavoritesOnly", false)
+        fragment.arguments = bundle
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
+
+        tabLayout.getTabAt(0)?.select()
     }
 
     private fun displayMapFragment() {
@@ -242,5 +247,50 @@ class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener, 
                 }
             })
     }
+
+    override fun onFavoriteToggled(crousId: String, isFavorite: Boolean) {
+        // Update local repository immediately (optimistic update)
+        crousRepository.toggleFavorite(crousId, isFavorite)
+
+        // Notify the fragment to refresh the UI
+        refreshListFragment()
+
+        // Sync the change with the server
+        crousService.toggleFavorite(crousId)
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (!response.isSuccessful) {
+                        // Revert local change if server call fails
+                        crousRepository.toggleFavorite(crousId, !isFavorite)
+                        refreshListFragment()
+
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Failed to sync with the server. Please try again.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    // Revert local change if server call fails
+                    crousRepository.toggleFavorite(crousId, !isFavorite)
+                    refreshListFragment()
+
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error: ${t.message}. Changes reverted.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+    }
+
+    private fun refreshListFragment() {
+        val fragment = supportFragmentManager.findFragmentByTag("ListFragment") as? ListFragment
+        fragment?.updateCrousList(crousRepository.getAllCrous())
+    }
+
+
 
 }

@@ -18,13 +18,16 @@ object CrousRepository {
         return storage.sortedWith(compareByDescending<Crous> { it.favorite }.thenBy { it.nom })
     }
 
-    fun updateFavoriteStatus(id: String, favorite: Boolean, context: Context) {
-        val crous = getCrous(id)
-        if (crous != null) {
-            crous.favorite = favorite
-            saveFavorites(context)
+    fun toggleFavorite(crousId: String, isFavorite: Boolean) {
+        val index = storage.indexOfFirst { it.id == crousId }
+        if (index != -1) {
+            storage[index].favorite = isFavorite
+            println("Toggled favorite for ID: $crousId to $isFavorite")
+        } else {
+            println("Crous with ID: $crousId not found in storage")
         }
     }
+
 
     fun loadFavorites(context: Context) {
         val sharedPrefs = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
