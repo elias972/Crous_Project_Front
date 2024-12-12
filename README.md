@@ -3,7 +3,7 @@
 <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Logo_Crous_vectoris%C3%A9.svg" alt="Crous Logo" width="80" />
 <img src ="https://alternance.imt.fr/wp-content/uploads/2020/11/logo_imt_st_etienne-verticale-223x300.jpg" alt="ISMIN Logo" width ="20" />
 
-**This project was done by Alex El Chidiac and Elias Ibrahim and presented to Mr. Gaetan Maisse for the Web Dev and Android Development course during Semester 9 at ISMIN.**
+**This project was done by Alexandre El Chidiac and Elias Ibrahim and presented to Mr. Gaetan Maisse for the Web Dev and Android Development course during Semester 9 at ISMIN.**
 
 ## Overview
 
