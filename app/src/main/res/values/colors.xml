@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Adjust these values to your desired red shades -->
+    <color name="md_theme_light_primary">#B71C1C</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#FFCDD2</color>
+    <color name="md_theme_light_onPrimaryContainer">#000000</color>
+    ...
 </resources>

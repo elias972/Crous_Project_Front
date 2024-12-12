@@ -28,7 +28,7 @@ class CrousAddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.activity_add, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_add, container, false)
 
         // Initialize UI components
         edtNom = rootView.findViewById(R.id.edtNom)
@@ -43,15 +43,16 @@ class CrousAddFragment : Fragment() {
         btnAdd = rootView.findViewById(R.id.btnAdd)
         btnReturnToMain = rootView.findViewById(R.id.btnReturnToMain)
 
-
         val typeOptions = resources.getStringArray(R.array.type_options)
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, typeOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerType.adapter = adapter
 
-        // Add button
+        // Add button click
         btnAdd.setOnClickListener {
-            saveCrous()
+            if (validateInputs()) {
+                saveCrous()
+            }
         }
 
         // Return to main page
@@ -80,9 +81,56 @@ class CrousAddFragment : Fragment() {
         }
     }
 
+    /**
+     * Validates user inputs. Shows Toast messages if validations fail.
+     * Returns true if all validations pass, false otherwise.
+     */
+    private fun validateInputs(): Boolean {
+        // Check mandatory fields
+        val nom = edtNom.text.toString().trim()
+        val type = spinnerType.selectedItem?.toString()?.trim()
+        val zone = edtZone.text.toString().trim()
+
+        if (nom.isEmpty()) {
+            showToast("Please enter the restaurant name.")
+            return false
+        }
+
+        if (type.isNullOrEmpty()) {
+            showToast("Please select a type.")
+            return false
+        }
+
+        if (zone.isEmpty()) {
+            showToast("Please enter the zone.")
+            return false
+        }
+
+        // Validate latitude and longitude if provided
+        val latitudeStr = edtLatitude.text.toString().trim()
+        val longitudeStr = edtLongitude.text.toString().trim()
+
+        if (latitudeStr.isNotEmpty()) {
+            val latVal = latitudeStr.toDoubleOrNull()
+            if (latVal == null) {
+                showToast("Invalid latitude format. Please enter a number.")
+                return false
+            }
+        }
+
+        if (longitudeStr.isNotEmpty()) {
+            val lonVal = longitudeStr.toDoubleOrNull()
+            if (lonVal == null) {
+                showToast("Invalid longitude format. Please enter a number.")
+                return false
+            }
+        }
+
+        return true
+    }
+
     private fun saveCrous() {
         val selectedType = spinnerType.selectedItem.toString()
-
         val latitude = edtLatitude.text.toString().toDoubleOrNull()
         val longitude = edtLongitude.text.toString().toDoubleOrNull()
 
@@ -94,22 +142,26 @@ class CrousAddFragment : Fragment() {
 
         val crous = Crous(
             id = generateNewId(),
-            nom = edtNom.text.toString(),
+            nom = edtNom.text.toString().trim(),
             type = selectedType,
-            zone = edtZone.text.toString(),
-            description = edtDescription.text.toString(),
-            contact = edtContact.text.toString(),
+            zone = edtZone.text.toString().trim(),
+            description = edtDescription.text.toString().trim(),
+            contact = edtContact.text.toString().trim(),
             geolocalisation = geolocalisation,
-            photo = edtPhoto.text.toString(),
-            info = edtInfo.text.toString(),
+            photo = edtPhoto.text.toString().trim(),
+            info = edtInfo.text.toString().trim(),
             favorite = false
         )
 
         listener.onCrousCreated(crous)
+        showToast("Crous added successfully!")
     }
 
     private fun generateNewId(): String {
         return Random.nextInt(100000, 999999).toString()
     }
-}
 
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+}

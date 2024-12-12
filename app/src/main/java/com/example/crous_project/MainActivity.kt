@@ -20,8 +20,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import com.example.crous_project.CrousCreator
 
 
-const val SERVER_BASE_URL = "http://10.0.2.2:3000"
+//const val SERVER_BASE_URL = "http://10.0.2.2:3000"
 
+const val SERVER_BASE_URL = "https://app-38070179-aa49-47be-b530-6fece93917b4.cleverapps.io/"
 class MainActivity : AppCompatActivity(), ListFragment.OnCrousSelectedListener, CrousCreator, CrousCallback {
 
     private val crousRepository = CrousRepository

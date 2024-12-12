@@ -9,4 +9,10 @@
         <item>Kiosque</item>
         <item>Brasserie</item>
     </string-array>
+    <string name="app_logo_desc">App Logo</string>
+    <string name="location_icon_desc">Location icon</string>
+    <string name="map_icon_desc">Map icon</string>
+    <string name="favorites_icon_desc">Favorites icon</string>
+    <string name="add_icon_desc">Add icon</string>
+
 </resources>

@@ -1,95 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/add_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="?attr/colorSurface">
 
     <LinearLayout
         android:id="@+id/add_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="24dp">
 
-        <!-- EditText for Name -->
-        <EditText
+        <!-- Header Section -->
+        <TextView
+            android:id="@+id/add_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add a New Crous"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/add_header_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fill in the details below:"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Name Field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Name"
+            app:startIconDrawable="@drawable/ic_name"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtNom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name" />
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Selector the type, predefined in strings.xml -->
-        <Spinner
-            android:id="@+id/spinnerType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:prompt="@string/select_type" />
+    <!-- Type Selector -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/select_type"
+        android:layout_marginBottom="16dp"
+        app:startIconDrawable="@drawable/ic_type"
+    app:startIconTint="?attr/colorOnSurfaceVariant">
 
+    <Spinner
+        android:id="@+id/spinnerType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent" />
+</com.google.android.material.textfield.TextInputLayout>
 
-        <!-- EditText for Zone -->
-        <EditText
-            android:id="@+id/edtZone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Zone" />
+    <!-- Zone Field -->
+<com.google.android.material.textfield.TextInputLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="Zone"
+android:layout_marginBottom="16dp"
+app:startIconDrawable="@drawable/ic_zone"
+    app:startIconTint="?attr/colorOnSurfaceVariant">
 
-        <!-- EditText for Description -->
-        <EditText
-            android:id="@+id/edtDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Description" />
+<com.google.android.material.textfield.TextInputEditText
+android:id="@+id/edtZone"
+android:layout_width="match_parent"
+android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- EditText for Contact -->
-        <EditText
-            android:id="@+id/edtContact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Contact" />
+    <!-- Description Field -->
+<com.google.android.material.textfield.TextInputLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="Description"
+android:layout_marginBottom="16dp"
+app:startIconDrawable="@drawable/ic_description"
+    app:startIconTint="?attr/colorOnSurfaceVariant">
 
-        <!-- EditText for Info -->
-        <EditText
-            android:id="@+id/edtInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Info" />
+<com.google.android.material.textfield.TextInputEditText
+android:id="@+id/edtDescription"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:inputType="textMultiLine"
+android:maxLines="4" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- EditText for Photo URL -->
-        <EditText
-            android:id="@+id/edtPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Photo URL" />
+    <!-- Contact Field -->
+<com.google.android.material.textfield.TextInputLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="Contact"
+android:layout_marginBottom="16dp"
+app:startIconDrawable="@drawable/ic_contact"
+    app:startIconTint="?attr/colorOnSurfaceVariant">
 
-        <!-- EditText for Latitude -->
-        <EditText
-            android:id="@+id/edtLatitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Latitude" />
+<com.google.android.material.textfield.TextInputEditText
+android:id="@+id/edtContact"
+android:layout_width="match_parent"
+android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- EditText for Longitude -->
-        <EditText
-            android:id="@+id/edtLongitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Longitude" />
+    <!-- Info Field -->
+<com.google.android.material.textfield.TextInputLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="Info"
+android:layout_marginBottom="16dp"
+app:startIconDrawable="@drawable/ic_info"
+    app:startIconTint="?attr/colorOnSurfaceVariant">
 
-        <!-- Add Button -->
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Crous" />
+<com.google.android.material.textfield.TextInputEditText
+android:id="@+id/edtInfo"
+android:layout_width="match_parent"
+android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Return to Main Button -->
-        <Button
-            android:id="@+id/btnReturnToMain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Return to Main Menu" />
+    <!-- Photo URL Field -->
+<com.google.android.material.textfield.TextInputLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="Photo URL"
+android:layout_marginBottom="16dp"
+app:startIconDrawable="@drawable/ic_placeholder"
+    app:startIconTint="?attr/colorOnSurfaceVariant">
 
+<com.google.android.material.textfield.TextInputEditText
+android:id="@+id/edtPhoto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:inputType="textUri" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Latitude Field -->
+<com.google.android.material.textfield.TextInputLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="Latitude"
+android:layout_marginBottom="16dp"
+app:startIconDrawable="@drawable/ic_location"
+    app:startIconTint="?attr/colorOnSurfaceVariant">
+
+<com.google.android.material.textfield.TextInputEditText
+android:id="@+id/edtLatitude"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Longitude Field -->
+<com.google.android.material.textfield.TextInputLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="Longitude"
+android:layout_marginBottom="24dp"
+app:startIconDrawable="@drawable/ic_location"
+    app:startIconTint="?attr/colorOnSurfaceVariant">
+
+<com.google.android.material.textfield.TextInputEditText
+android:id="@+id/edtLongitude"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Add Button -->
+<com.google.android.material.button.MaterialButton
+android:id="@+id/btnAdd"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="Add Crous"
+android:layout_marginBottom="16dp"/>
+
+    <!-- Return to Main Button -->
+<com.google.android.material.button.MaterialButton
+android:id="@+id/btnReturnToMain"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Return to Main Menu"/>
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
