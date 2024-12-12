@@ -1,6 +1,8 @@
 # Crous_Project_Front
 
-![Crous Logo](https://upload.wikimedia.org/wikipedia/commons/e/e0/Logo_Crous_vectoris%C3%A9.svg)
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Logo_Crous_vectoris%C3%A9.svg" alt="Crous Logo" width="80" />
+<img src ="https://alternance.imt.fr/wp-content/uploads/2020/11/logo_imt_st_etienne-verticale-223x300.jpg" alt="ISMIN Logo" width ="20" />
+**This project was done by Alex El Chidiac and Elias Ibrahim and presented to Mr. Gaetan Maisse for the Web Dev and Android Development course during Semester 9 at ISMIN.**
 
 ## Overview
 
@@ -28,5 +30,25 @@ Crous_Project_Front is an Android application designed to display and manage dat
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/elias972/Crous_Project_Front.git
+
+2. **Interacting with the App:**
+
+-List Tab: View a paginated list of Crous entries fetched from the server.
+-Map Tab: Visualize all Crous locations on an interactive Google Map.
+-Info Tab: View additional information about the app or related content.
+-Add (Bottom Navigation): Add a new Crous entry by filling out the form.
+-Favorite (Bottom Navigation): Filter the list to show only the Crous items you've marked as favorites.
+
+3. **Project Structure**
+
+-We used 2 Activities (Main Activity and Detail Activity)
+-We used 4 Fragments (Add Fragment/Info Fragment/List Fragment/Map Fragment)
+
+## API Integration
+The project uses Retrofit to interact with a backend server:
+
+-Base URL: https://app-38070179-aa49-47be-b530-6fece93917b4.cleverapps.io/
+-Check CrousService.kt for endpoints and model definitions.
+
 
 
