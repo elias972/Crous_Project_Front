@@ -33,37 +33,40 @@ Crous_Project_Front is an Android application designed to display and manage dat
    git clone https://github.com/elias972/Crous_Project_Front.git
 
 2. **Interacting with the App:**
-   -**List Tab:** View a paginated list of Crous entries fetched from the server.
 
-   -**Map Tab:** Visualize all Crous locations on an interactive Google Map.
+      -**List Tab:** View a paginated list of Crous entries fetched from the server.
 
-   -**Info Tab:** View additional information about the app or related content.
+      -**Map Tab:** Visualize all Crous locations on an interactive Google Map.
 
-   -**Add (Bottom Navigation):** Add a new Crous entry by filling out the form.
+      -**Info Tab:** View additional information about the app or related content.
 
-   -**Favorite (Bottom Navigation):** Filter the list to show only the Crous items you've marked as favorites.
+      -**Add (Bottom Navigation):** Add a new Crous entry by filling out the form.
+
+      -**Favorite (Bottom Navigation):** Filter the list to show only the Crous items you've marked as favorites.
 
 4. **Project Structure:**
-**Activities:**
 
-   **-MainActivity.kt:** Manages tabs, bottom navigation, and fragment transactions.
+   **Activities:**
 
-   **-DetailActivity.kt:** Displays detailed information about a selected Crous.
+      **-MainActivity.kt:** Manages tabs, bottom navigation, and fragment transactions.
 
-**Fragments:**
+      **-DetailActivity.kt:** Displays detailed information about a selected Crous.
 
-   **-ListFragment.kt:** Shows a paginated list of Crous items.
+   **Fragments:**
+
+      **-ListFragment.kt:** Shows a paginated list of Crous items.
    
-   **-MapFragment.kt:** Displays Crous locations on a Google Map.
+      **-MapFragment.kt:** Displays Crous locations on a Google Map.
    
-   **-InfoFragment.kt:** Presents general or dynamic information.
+      **-InfoFragment.kt:** Presents general or dynamic information.
    
-   **-CrousAddFragment.kt**: Allows users to add new Crous entries.
+      **-CrousAddFragment.kt**: Allows users to add new Crous entries.
 
 ## API Integration
+
 The project uses Retrofit to interact with a backend server:
 
--Base URL: https://app-38070179-aa49-47be-b530-6fece93917b4.cleverapps.io/
+-Base URL: https://app-38070179-aa49-47be-b530-6fece93917b4.cleverapps.io/crous
 
 -Check CrousService.kt for endpoints and model definitions.
 
